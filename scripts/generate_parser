@@ -1,0 +1,43 @@
+#!/bin/bash
+
+shopt -s globstar
+
+if [[ -n "${1-}" ]] && [[ -d "$1" ]]; then
+	ANTLR_DIR="$1"
+else
+	ANTLR_DIR='/usr/local/lib'
+fi
+
+ANTLR_LOC="$ANTLR_DIR/antlr-4.5-complete.jar"
+ANTLR_SYMTAB="$ANTLR_DIR/symtab-1.0.jar"
+
+CD=$(pwd)
+if [ ! -f "$ANTLR_LOC" ]; then
+	cd "$ANTLR_DIR"
+	sudo curl -O http://www.antlr.org/download/antlr-4.5-complete.jar
+	cd "$CD"
+fi
+
+if [ ! -f "$ANTLR_SYMTAB" ]; then
+	cd "$ANTLR_DIR"
+	sudo curl -O http://www.antlr.org/download/symtab-1.0.jar
+	cd "$CD"
+fi
+
+if [[ $(echo "$CLASSPATH" | grep -q "$ANTLR_DIR" && echo "$?") -eq "" ]] && \
+	[[ "$(grep $ANTLR_DIR < ~/.bashrc)" == "" ]] && \
+	[[ "$(grep $ANTLR_DIR < ~/.profile)" == "" ]]; then
+
+
+	echo "export CLASSPATH=$CLASSPATH:$ANTLR_DIR:$CD" >> ~/.bashrc
+	echo "export CLASSPATH=$CLASSPATH:$ANTLR_DIR:$CD" >> ~/.profile
+fi
+
+CLASSPATH="$ANTLR_LOC:$ANTLR_SYMTAB:$CD/parser"
+
+cd parser
+antlr4="java -jar $ANTLR_LOC"
+#grun="java -cp $CLASSPATH org.antlr.v4.runtime.misc.TestRig"
+
+$antlr4 Z3proof.g4 -Werror # generate parser
+cd ..

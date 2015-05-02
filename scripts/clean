@@ -1,0 +1,18 @@
+#!/bin/bash
+
+shopt -s globstar
+
+rm -rf z3
+
+CUR=$(pwd)
+for f in $(sed -r 's/^.{2}//' <(find . | grep .gitignore)); 
+do
+	cd "$(dirname $f)"
+	while read line;
+	do
+		rm -rf $(sed -r 's/^.{2}//' <(find . -name $line))
+	done < <(cat .gitignore | sed '/^\s*$/d' | uniq | sort)
+	cd "$CUR"
+done
+
+astyle -z2OonQ $(sed -r 's/^.{2}//' <(find . -name '*.java'))
