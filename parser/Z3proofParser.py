@@ -4,13 +4,11 @@ from __future__ import print_function
 from antlr4 import *
 from io import StringIO
 package = globals().get("__package__", None)
-ischild = len(package) > 0 if package is not None else False
+ischild = len(package)>0 if package is not None else False
 if ischild:
     from .Z3proofListener import Z3proofListener
 else:
     from Z3proofListener import Z3proofListener
-
-
 def serializedATN():
     with StringIO() as buf:
         buf.write(u"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3")
@@ -54,41 +52,41 @@ def serializedATN():
         return buf.getvalue()
 
 
-class Z3proofParser (Parser):
+class Z3proofParser ( Parser ):
 
     grammarFileName = "java-escape"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
+    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [u"<INVALID>", u"'And'", u"'Or'", u"'Implies'", u"'If'",
-                    u"'goal'", u"'asserted'", u"'apply-def'", u"'commutativity'",
-                    u"'monotonicity'", u"'def-axiom'", u"'der'", u"'distributivity'",
-                    u"'and-elim'", u"'not-or-elim'", u"'elim-unused'",
-                    u"'hypothesis'", u"'iff-false'", u"'iff-true'", u"'iff~'",
-                    u"'quant-inst'", u"'quant-intro'", u"'intro-def'",
-                    u"'lemma'", u"'nnf-neg'", u"'nnf-pos'", u"'mp'", u"'mp~'",
-                    u"'pull-quant'", u"'push-quant'", u"'refl'", u"'rewrite'",
-                    u"'sk'", u"'symm'", u"'th-lemma'", u"'trans'", u"'true-axiom'",
-                    u"'unit-resolution'", u"'('", u"')'", u"','"]
+    literalNames = [ u"<INVALID>", u"'And'", u"'Or'", u"'Implies'", u"'If'", 
+                     u"'goal'", u"'asserted'", u"'apply-def'", u"'commutativity'", 
+                     u"'monotonicity'", u"'def-axiom'", u"'der'", u"'distributivity'", 
+                     u"'and-elim'", u"'not-or-elim'", u"'elim-unused'", 
+                     u"'hypothesis'", u"'iff-false'", u"'iff-true'", u"'iff~'", 
+                     u"'quant-inst'", u"'quant-intro'", u"'intro-def'", 
+                     u"'lemma'", u"'nnf-neg'", u"'nnf-pos'", u"'mp'", u"'mp~'", 
+                     u"'pull-quant'", u"'push-quant'", u"'refl'", u"'rewrite'", 
+                     u"'sk'", u"'symm'", u"'th-lemma'", u"'trans'", u"'true-axiom'", 
+                     u"'unit-resolution'", u"'('", u"')'", u"','" ]
 
-    symbolicNames = [u"<INVALID>", u"<INVALID>", u"<INVALID>", u"<INVALID>",
-                     u"<INVALID>", u"GOAL", u"ASSERT", u"APPLY_DEF", u"COMMUTATIVITY",
-                     u"MONOTONICITY", u"DEF_AXIOM", u"DER", u"DISTRIBUTIVITY",
-                     u"AND_ELIM", u"NOT_OR_ELIM", u"ELIM_UNUSED", u"HYPOTHESIS",
-                     u"IFF_FALSE", u"IFF_TRUE", u"IFF_OTHER", u"QUANT_INST",
-                     u"QUANT_INTRO", u"INTRO_DEF", u"LEMMA", u"NNF_NEG",
-                     u"NNF_POS", u"MP", u"MP_OTHER", u"PULL_QUANT", u"PUSH_QUANT",
-                     u"REFLEXIVITY", u"REWRITE", u"SKOLEM", u"SYMMETRY",
-                     u"TH_LEMMA", u"TRANSITIVITY", u"TRUE_AXIOM", u"UNIT_RESOLUTION",
-                     u"LEFT_PAREN", u"RIGHT_PAREN", u"COMMA", u"LOWERCASE",
-                     u"UPPERCASE", u"ALPHA", u"ALPHANUMERIC", u"DIGIT",
-                     u"INTEGER", u"FLOAT", u"NUMERICAL_LITERAL", u"BOOLEAN_LITERAL",
-                     u"LITERAL", u"ARITHMETIC_OPERATOR", u"COMPARISON_OPERATOR",
-                     u"WHITESPACE", u"IDENTIFIER"]
+    symbolicNames = [ u"<INVALID>", u"<INVALID>", u"<INVALID>", u"<INVALID>", 
+                      u"<INVALID>", u"GOAL", u"ASSERT", u"APPLY_DEF", u"COMMUTATIVITY", 
+                      u"MONOTONICITY", u"DEF_AXIOM", u"DER", u"DISTRIBUTIVITY", 
+                      u"AND_ELIM", u"NOT_OR_ELIM", u"ELIM_UNUSED", u"HYPOTHESIS", 
+                      u"IFF_FALSE", u"IFF_TRUE", u"IFF_OTHER", u"QUANT_INST", 
+                      u"QUANT_INTRO", u"INTRO_DEF", u"LEMMA", u"NNF_NEG", 
+                      u"NNF_POS", u"MP", u"MP_OTHER", u"PULL_QUANT", u"PUSH_QUANT", 
+                      u"REFLEXIVITY", u"REWRITE", u"SKOLEM", u"SYMMETRY", 
+                      u"TH_LEMMA", u"TRANSITIVITY", u"TRUE_AXIOM", u"UNIT_RESOLUTION", 
+                      u"LEFT_PAREN", u"RIGHT_PAREN", u"COMMA", u"LOWERCASE", 
+                      u"UPPERCASE", u"ALPHA", u"ALPHANUMERIC", u"DIGIT", 
+                      u"INTEGER", u"FLOAT", u"NUMERICAL_LITERAL", u"BOOLEAN_LITERAL", 
+                      u"LITERAL", u"ARITHMETIC_OPERATOR", u"COMPARISON_OPERATOR", 
+                      u"WHITESPACE", u"IDENTIFIER" ]
 
     RULE_proof = 0
     RULE_rules = 1
@@ -98,78 +96,77 @@ class Z3proofParser (Parser):
     RULE_argumentList = 5
     RULE_arguments = 6
 
-    ruleNames = [
-        u"proof", u"rules", u"proof_rule", u"ruleList", u"expression",
-        u"argumentList", u"arguments"]
+    ruleNames =  [ u"proof", u"rules", u"proof_rule", u"ruleList", u"expression", 
+                   u"argumentList", u"arguments" ]
 
     EOF = Token.EOF
-    T__0 = 1
-    T__1 = 2
-    T__2 = 3
-    T__3 = 4
-    GOAL = 5
-    ASSERT = 6
-    APPLY_DEF = 7
-    COMMUTATIVITY = 8
-    MONOTONICITY = 9
-    DEF_AXIOM = 10
-    DER = 11
-    DISTRIBUTIVITY = 12
-    AND_ELIM = 13
-    NOT_OR_ELIM = 14
-    ELIM_UNUSED = 15
-    HYPOTHESIS = 16
-    IFF_FALSE = 17
-    IFF_TRUE = 18
-    IFF_OTHER = 19
-    QUANT_INST = 20
-    QUANT_INTRO = 21
-    INTRO_DEF = 22
-    LEMMA = 23
-    NNF_NEG = 24
-    NNF_POS = 25
-    MP = 26
-    MP_OTHER = 27
-    PULL_QUANT = 28
-    PUSH_QUANT = 29
-    REFLEXIVITY = 30
-    REWRITE = 31
-    SKOLEM = 32
-    SYMMETRY = 33
-    TH_LEMMA = 34
-    TRANSITIVITY = 35
-    TRUE_AXIOM = 36
-    UNIT_RESOLUTION = 37
-    LEFT_PAREN = 38
-    RIGHT_PAREN = 39
-    COMMA = 40
-    LOWERCASE = 41
-    UPPERCASE = 42
-    ALPHA = 43
-    ALPHANUMERIC = 44
-    DIGIT = 45
-    INTEGER = 46
-    FLOAT = 47
-    NUMERICAL_LITERAL = 48
-    BOOLEAN_LITERAL = 49
-    LITERAL = 50
-    ARITHMETIC_OPERATOR = 51
-    COMPARISON_OPERATOR = 52
-    WHITESPACE = 53
-    IDENTIFIER = 54
+    T__0=1
+    T__1=2
+    T__2=3
+    T__3=4
+    GOAL=5
+    ASSERT=6
+    APPLY_DEF=7
+    COMMUTATIVITY=8
+    MONOTONICITY=9
+    DEF_AXIOM=10
+    DER=11
+    DISTRIBUTIVITY=12
+    AND_ELIM=13
+    NOT_OR_ELIM=14
+    ELIM_UNUSED=15
+    HYPOTHESIS=16
+    IFF_FALSE=17
+    IFF_TRUE=18
+    IFF_OTHER=19
+    QUANT_INST=20
+    QUANT_INTRO=21
+    INTRO_DEF=22
+    LEMMA=23
+    NNF_NEG=24
+    NNF_POS=25
+    MP=26
+    MP_OTHER=27
+    PULL_QUANT=28
+    PUSH_QUANT=29
+    REFLEXIVITY=30
+    REWRITE=31
+    SKOLEM=32
+    SYMMETRY=33
+    TH_LEMMA=34
+    TRANSITIVITY=35
+    TRUE_AXIOM=36
+    UNIT_RESOLUTION=37
+    LEFT_PAREN=38
+    RIGHT_PAREN=39
+    COMMA=40
+    LOWERCASE=41
+    UPPERCASE=42
+    ALPHA=43
+    ALPHANUMERIC=44
+    DIGIT=45
+    INTEGER=46
+    FLOAT=47
+    NUMERICAL_LITERAL=48
+    BOOLEAN_LITERAL=49
+    LITERAL=50
+    ARITHMETIC_OPERATOR=51
+    COMPARISON_OPERATOR=52
+    WHITESPACE=53
+    IDENTIFIER=54
 
     def __init__(self, input):
         super(Z3proofParser, self).__init__(input)
         self.checkVersion("4.5")
-        self._interp = ParserATNSimulator(
-            self, self.atn, self.decisionsToDFA, self.sharedContextCache)
+        self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
+
+
 
     class ProofContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(Z3proofParser.ProofContext, self).__init__(
-                parent, invokingState)
+            super(Z3proofParser.ProofContext, self).__init__(parent, invokingState)
             self.parser = parser
 
         def LEFT_PAREN(self):
@@ -185,24 +182,28 @@ class Z3proofParser (Parser):
             return self.getToken(Z3proofParser.EOF, 0)
 
         def rules(self):
-            return self.getTypedRuleContext(Z3proofParser.RulesContext, 0)
+            return self.getTypedRuleContext(Z3proofParser.RulesContext,0)
+
 
         def getRuleIndex(self):
             return Z3proofParser.RULE_proof
 
         def enterRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.enterProof(self)
 
         def exitRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.exitProof(self)
+
+
+
 
     def proof(self):
 
         localctx = Z3proofParser.ProofContext(self, self._ctx, self.state)
         self.enterRule(localctx, 0, self.RULE_proof)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 14
@@ -214,6 +215,7 @@ class Z3proofParser (Parser):
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << Z3proofParser.ASSERT) | (1 << Z3proofParser.APPLY_DEF) | (1 << Z3proofParser.COMMUTATIVITY) | (1 << Z3proofParser.MONOTONICITY) | (1 << Z3proofParser.DEF_AXIOM) | (1 << Z3proofParser.DER) | (1 << Z3proofParser.DISTRIBUTIVITY) | (1 << Z3proofParser.AND_ELIM) | (1 << Z3proofParser.NOT_OR_ELIM) | (1 << Z3proofParser.ELIM_UNUSED) | (1 << Z3proofParser.HYPOTHESIS) | (1 << Z3proofParser.IFF_FALSE) | (1 << Z3proofParser.IFF_TRUE) | (1 << Z3proofParser.IFF_OTHER) | (1 << Z3proofParser.QUANT_INST) | (1 << Z3proofParser.QUANT_INTRO) | (1 << Z3proofParser.INTRO_DEF) | (1 << Z3proofParser.LEMMA) | (1 << Z3proofParser.NNF_NEG) | (1 << Z3proofParser.NNF_POS) | (1 << Z3proofParser.MP) | (1 << Z3proofParser.MP_OTHER) | (1 << Z3proofParser.PULL_QUANT) | (1 << Z3proofParser.PUSH_QUANT) | (1 << Z3proofParser.REFLEXIVITY) | (1 << Z3proofParser.REWRITE) | (1 << Z3proofParser.SKOLEM) | (1 << Z3proofParser.SYMMETRY) | (1 << Z3proofParser.TH_LEMMA) | (1 << Z3proofParser.TRANSITIVITY) | (1 << Z3proofParser.TRUE_AXIOM) | (1 << Z3proofParser.UNIT_RESOLUTION) | (1 << Z3proofParser.LEFT_PAREN))) != 0):
                 self.state = 16
                 self.rules()
+
 
             self.state = 19
             self.match(Z3proofParser.RIGHT_PAREN)
@@ -230,15 +232,15 @@ class Z3proofParser (Parser):
     class RulesContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(Z3proofParser.RulesContext, self).__init__(
-                parent, invokingState)
+            super(Z3proofParser.RulesContext, self).__init__(parent, invokingState)
             self.parser = parser
 
         def LEFT_PAREN(self):
             return self.getToken(Z3proofParser.LEFT_PAREN, 0)
 
         def ruleList(self):
-            return self.getTypedRuleContext(Z3proofParser.RuleListContext, 0)
+            return self.getTypedRuleContext(Z3proofParser.RuleListContext,0)
+
 
         def RIGHT_PAREN(self):
             return self.getToken(Z3proofParser.RIGHT_PAREN, 0)
@@ -247,12 +249,15 @@ class Z3proofParser (Parser):
             return Z3proofParser.RULE_rules
 
         def enterRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.enterRules(self)
 
         def exitRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.exitRules(self)
+
+
+
 
     def rules(self):
 
@@ -289,8 +294,7 @@ class Z3proofParser (Parser):
     class Proof_ruleContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(Z3proofParser.Proof_ruleContext, self).__init__(
-                parent, invokingState)
+            super(Z3proofParser.Proof_ruleContext, self).__init__(parent, invokingState)
             self.parser = parser
 
         def ASSERT(self):
@@ -393,18 +397,21 @@ class Z3proofParser (Parser):
             return Z3proofParser.RULE_proof_rule
 
         def enterRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.enterProof_rule(self)
 
         def exitRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.exitProof_rule(self)
+
+
+
 
     def proof_rule(self):
 
         localctx = Z3proofParser.Proof_ruleContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_proof_rule)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 29
@@ -424,15 +431,15 @@ class Z3proofParser (Parser):
     class RuleListContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(Z3proofParser.RuleListContext, self).__init__(
-                parent, invokingState)
+            super(Z3proofParser.RuleListContext, self).__init__(parent, invokingState)
             self.parser = parser
 
         def proof_rule(self, i=None):
             if i is None:
                 return self.getTypedRuleContexts(Z3proofParser.Proof_ruleContext)
             else:
-                return self.getTypedRuleContext(Z3proofParser.Proof_ruleContext, i)
+                return self.getTypedRuleContext(Z3proofParser.Proof_ruleContext,i)
+
 
         def COMMA(self, i=None):
             if i is None:
@@ -444,18 +451,21 @@ class Z3proofParser (Parser):
             return Z3proofParser.RULE_ruleList
 
         def enterRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.enterRuleList(self)
 
         def exitRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.exitRuleList(self)
+
+
+
 
     def ruleList(self):
 
         localctx = Z3proofParser.RuleListContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_ruleList)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 31
@@ -463,7 +473,7 @@ class Z3proofParser (Parser):
             self.state = 36
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la == Z3proofParser.COMMA:
+            while _la==Z3proofParser.COMMA:
                 self.state = 32
                 self.match(Z3proofParser.COMMA)
                 self.state = 33
@@ -483,8 +493,7 @@ class Z3proofParser (Parser):
     class ExpressionContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(Z3proofParser.ExpressionContext, self).__init__(
-                parent, invokingState)
+            super(Z3proofParser.ExpressionContext, self).__init__(parent, invokingState)
             self.parser = parser
 
         def LEFT_PAREN(self):
@@ -494,7 +503,8 @@ class Z3proofParser (Parser):
             if i is None:
                 return self.getTypedRuleContexts(Z3proofParser.ExpressionContext)
             else:
-                return self.getTypedRuleContext(Z3proofParser.ExpressionContext, i)
+                return self.getTypedRuleContext(Z3proofParser.ExpressionContext,i)
+
 
         def COMMA(self, i=None):
             if i is None:
@@ -512,7 +522,8 @@ class Z3proofParser (Parser):
             return self.getToken(Z3proofParser.LITERAL, 0)
 
         def arguments(self):
-            return self.getTypedRuleContext(Z3proofParser.ArgumentsContext, 0)
+            return self.getTypedRuleContext(Z3proofParser.ArgumentsContext,0)
+
 
         def ARITHMETIC_OPERATOR(self):
             return self.getToken(Z3proofParser.ARITHMETIC_OPERATOR, 0)
@@ -524,26 +535,27 @@ class Z3proofParser (Parser):
             return Z3proofParser.RULE_expression
 
         def enterRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.enterExpression(self)
 
         def exitRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.exitExpression(self)
+
+
 
     def expression(self, _p=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = Z3proofParser.ExpressionContext(
-            self, self._ctx, _parentState)
+        localctx = Z3proofParser.ExpressionContext(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 8
         self.enterRecursionRule(localctx, 8, self.RULE_expression, _p)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 88
-            la_ = self._interp.adaptivePredict(self._input, 5, self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
             if la_ == 1:
                 self.state = 40
                 self.match(Z3proofParser.T__0)
@@ -558,7 +570,7 @@ class Z3proofParser (Parser):
                 self.state = 49
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la == Z3proofParser.COMMA:
+                while _la==Z3proofParser.COMMA:
                     self.state = 45
                     self.match(Z3proofParser.COMMA)
                     self.state = 46
@@ -585,7 +597,7 @@ class Z3proofParser (Parser):
                 self.state = 63
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la == Z3proofParser.COMMA:
+                while _la==Z3proofParser.COMMA:
                     self.state = 59
                     self.match(Z3proofParser.COMMA)
                     self.state = 60
@@ -649,28 +661,25 @@ class Z3proofParser (Parser):
                 self.arguments()
                 pass
 
+
             self._ctx.stop = self._input.LT(-1)
             self.state = 98
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input, 7, self._ctx)
-            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
-                if _alt == 1:
+            _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
                     self.state = 96
-                    la_ = self._interp.adaptivePredict(
-                        self._input, 6, self._ctx)
+                    la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
                     if la_ == 1:
-                        localctx = Z3proofParser.ExpressionContext(
-                            self, _parentctx, _parentState)
-                        self.pushNewRecursionContext(
-                            localctx, _startState, self.RULE_expression)
+                        localctx = Z3proofParser.ExpressionContext(self, _parentctx, _parentState)
+                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 90
                         if not self.precpred(self._ctx, 9):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(
-                                self, "self.precpred(self._ctx, 9)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
                         self.state = 91
                         self.match(Z3proofParser.ARITHMETIC_OPERATOR)
                         self.state = 92
@@ -678,24 +687,22 @@ class Z3proofParser (Parser):
                         pass
 
                     elif la_ == 2:
-                        localctx = Z3proofParser.ExpressionContext(
-                            self, _parentctx, _parentState)
-                        self.pushNewRecursionContext(
-                            localctx, _startState, self.RULE_expression)
+                        localctx = Z3proofParser.ExpressionContext(self, _parentctx, _parentState)
+                        self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 93
                         if not self.precpred(self._ctx, 8):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(
-                                self, "self.precpred(self._ctx, 8)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
                         self.state = 94
                         self.match(Z3proofParser.COMPARISON_OPERATOR)
                         self.state = 95
                         self.expression(9)
                         pass
 
+             
                 self.state = 100
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input, 7, self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -708,15 +715,15 @@ class Z3proofParser (Parser):
     class ArgumentListContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(Z3proofParser.ArgumentListContext, self).__init__(
-                parent, invokingState)
+            super(Z3proofParser.ArgumentListContext, self).__init__(parent, invokingState)
             self.parser = parser
 
         def expression(self, i=None):
             if i is None:
                 return self.getTypedRuleContexts(Z3proofParser.ExpressionContext)
             else:
-                return self.getTypedRuleContext(Z3proofParser.ExpressionContext, i)
+                return self.getTypedRuleContext(Z3proofParser.ExpressionContext,i)
+
 
         def COMMA(self, i=None):
             if i is None:
@@ -728,19 +735,21 @@ class Z3proofParser (Parser):
             return Z3proofParser.RULE_argumentList
 
         def enterRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.enterArgumentList(self)
 
         def exitRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.exitArgumentList(self)
+
+
+
 
     def argumentList(self):
 
-        localctx = Z3proofParser.ArgumentListContext(
-            self, self._ctx, self.state)
+        localctx = Z3proofParser.ArgumentListContext(self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_argumentList)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 101
@@ -748,7 +757,7 @@ class Z3proofParser (Parser):
             self.state = 106
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la == Z3proofParser.COMMA:
+            while _la==Z3proofParser.COMMA:
                 self.state = 102
                 self.match(Z3proofParser.COMMA)
                 self.state = 103
@@ -768,8 +777,7 @@ class Z3proofParser (Parser):
     class ArgumentsContext(ParserRuleContext):
 
         def __init__(self, parser, parent=None, invokingState=-1):
-            super(Z3proofParser.ArgumentsContext, self).__init__(
-                parent, invokingState)
+            super(Z3proofParser.ArgumentsContext, self).__init__(parent, invokingState)
             self.parser = parser
 
         def LEFT_PAREN(self):
@@ -779,24 +787,28 @@ class Z3proofParser (Parser):
             return self.getToken(Z3proofParser.RIGHT_PAREN, 0)
 
         def argumentList(self):
-            return self.getTypedRuleContext(Z3proofParser.ArgumentListContext, 0)
+            return self.getTypedRuleContext(Z3proofParser.ArgumentListContext,0)
+
 
         def getRuleIndex(self):
             return Z3proofParser.RULE_arguments
 
         def enterRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.enterArguments(self)
 
         def exitRule(self, listener):
-            if isinstance(listener, Z3proofListener):
+            if isinstance( listener, Z3proofListener ):
                 listener.exitArguments(self)
+
+
+
 
     def arguments(self):
 
         localctx = Z3proofParser.ArgumentsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 12, self.RULE_arguments)
-        self._la = 0  # Token type
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 109
@@ -807,6 +819,7 @@ class Z3proofParser (Parser):
                 self.state = 110
                 self.argumentList()
 
+
             self.state = 113
             self.match(Z3proofParser.RIGHT_PAREN)
         except RecognitionException as re:
@@ -816,6 +829,8 @@ class Z3proofParser (Parser):
         finally:
             self.exitRule()
         return localctx
+
+
 
     def sempred(self, localctx, ruleIndex, predIndex):
         if self._predicates == None:
@@ -830,6 +845,11 @@ class Z3proofParser (Parser):
     def expression_sempred(self, localctx, predIndex):
             if predIndex == 0:
                 return self.precpred(self._ctx, 9)
+         
 
             if predIndex == 1:
                 return self.precpred(self._ctx, 8)
+         
+
+
+

@@ -106,7 +106,7 @@ ARITHMETIC_OPERATOR : '+' | '*' | '-' | '/';
 
 COMPARISON_OPERATOR : '>' | '<' | '>=' | '<=' | '!=' | '==';
         
-WHITESPACE : ' ' | '\t' | '\r'? '\n';
+WHITESPACE: [ \t\n\r]+ -> skip;
 
 IDENTIFIER : ALPHA+ ALPHANUMERIC*;
 
