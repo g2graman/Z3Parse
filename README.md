@@ -4,7 +4,7 @@ The purpose of **Z3Parse** is to take user-input in the form of an [SMT formula]
 
 ## Contributing 
 
-Z3Parse welcomes pull requests from other users and will be merged so long as they do not cause regression which can be noted by unit tests. At the time of writing this, however, a thorough set of unit tests has not yet been committed to the repository so pull requests will be merged with caution. It is encouraged to focus on submitting pull requests containing unit tests before attempting to modify a translator.
+Z3Parse welcomes pull requests from other users and will be merged so long as they do not cause regression which can be noted by unit tests. At the time of writing this, however, a thorough set of unit tests has not yet been committed to the repository so pull requests will be merged with caution. It is encouraged to focus on submitting pull requests containing unit tests before attempting to modify any component in the Z3Parse chain.
 
 ### Unit Tests
 
