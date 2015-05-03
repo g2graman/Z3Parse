@@ -1,0 +1,7 @@
+languages:
+   Python: true
+
+exclude_paths:
+- parser/Z3proofLexer.py
+- parser/Z3proofListener.py
+- parser/Z3proofParser.py
