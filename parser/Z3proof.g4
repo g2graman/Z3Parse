@@ -8,13 +8,9 @@ grammar Z3proof;
 
 GOAL : 'goal';
 
-proof
-    : LEFT_PAREN GOAL rules? RIGHT_PAREN EOF
-    ;      
+proof : LEFT_PAREN GOAL rules? RIGHT_PAREN EOF;      
 
-rules
-    : LEFT_PAREN ruleList? RIGHT_PAREN
-    ;
+rules : LEFT_PAREN ruleList RIGHT_PAREN | ruleList;
 
 ASSERT : 'asserted';
 APPLY_DEF : 'apply-def';
@@ -49,8 +45,7 @@ TRANSITIVITY : 'trans';
 TRUE_AXIOM : 'true-axiom';
 UNIT_RESOLUTION : 'unit-resolution';
 
-rule
-    : ASSERT
+proof_rule : ASSERT
     | APPLY_DEF
     | COMMUTATIVITY
     | MONOTONICITY
@@ -81,13 +76,9 @@ rule
     | TH_LEMMA
     | TRANSITIVITY
     | TRUE_AXIOM
-    | UNIT_RESOLUTION 
-    ;
+    | UNIT_RESOLUTION;
 
-ruleList
-    : rule ( COMMA rule )*
-    | rule ( rule )*
-    ; 
+ruleList : proof_rule ( COMMA proof_rule )*; 
 
 LEFT_PAREN : '(';
 RIGHT_PAREN : ')';
@@ -98,60 +89,27 @@ UPPERCASE : [A-Z];
 ALPHA : [a-zA-Z];
 ALPHANUMERIC : [a-zA-Z0-9];
 
-DIGIT
-    : [0-9]
-    ;
+DIGIT : [0-9];
 
-INTEGER
-    : '0'
-    | [1-9] DIGIT*
-    ;
+INTEGER : '0' | [1-9] DIGIT*;
 
-FLOAT
-    : DIGIT+ '.' DIGIT+
-    ;
+FLOAT : DIGIT+ '.' DIGIT+;
 
-NUMERICAL_LITERAL
-    : FLOAT
-    | INTEGER
-    ;
+NUMERICAL_LITERAL : FLOAT | INTEGER;
 
-BOOLEAN_LITERAL
-    : 'True'
-    | 'False'
-    ;
+BOOLEAN_LITERAL : 'True' | 'False';
 
-LITERAL 
-    : '-'? NUMERICAL_LITERAL
-    | BOOLEAN_LITERAL
-    ;
+LITERAL : '-'? NUMERICAL_LITERAL | BOOLEAN_LITERAL;
 
-ARITHMETIC_OPERATOR
-    : '+'
-    | '*'
-    | '-'
-    | '/'
-    ;
+ARITHMETIC_OPERATOR : '+' | '*' | '-' | '/';
 
-COMPARISON_OPERATOR 
-    : '>'
-    | '<'
-    | '>='
-    | '<='
-    | '!='
-    | '=='
-    ;
+COMPARISON_OPERATOR : '>' | '<' | '>=' | '<=' | '!=' | '==';
         
-WHITESPACE
-    : ' '
-    | '\t'
-    | '\n'
-    ;
+WHITESPACE : ' ' | '\t' | '\r'? '\n';
 
 IDENTIFIER : ALPHA+ ALPHANUMERIC*;
 
-expression 
-    : expression ARITHMETIC_OPERATOR expression
+expression : expression ARITHMETIC_OPERATOR expression
     | expression COMPARISON_OPERATOR expression
     | 'And' LEFT_PAREN expression COMMA expression ( COMMA expression )* RIGHT_PAREN // At least 2-ary
     | 'Or' LEFT_PAREN expression COMMA expression ( COMMA expression )* RIGHT_PAREN // At least 2-ary
@@ -159,13 +117,8 @@ expression
     | 'If' LEFT_PAREN expression COMMA expression COMMA expression RIGHT_PAREN // 3-ary
     | IDENTIFIER
     | LITERAL
-    | IDENTIFIER arguments // Function call
-    ;
+    | IDENTIFIER arguments; // Function call
 
-argumentList
-    : expression ( COMMA expression )*
-    ; 
+argumentList : expression ( COMMA expression )*; 
 
-arguments
-    : LEFT_PAREN argumentList? RIGHT_PAREN
-    ;
+arguments : LEFT_PAREN argumentList? RIGHT_PAREN;
