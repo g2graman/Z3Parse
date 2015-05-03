@@ -10,9 +10,15 @@ do
 	cd "$(dirname $f)"
 	while read line;
 	do
-		rm -rf $(sed -r 's/^.{2}//' <(find . -name $line))
-	done < <(cat .gitignore | sed '/^\s*$/d' | uniq | sort)
+		rm -rf $(sed -r 's/^.{2}//' <(find . -name "$line"))
+	done < <(sed '/^\s*$/d' < .gitignore | uniq | sort)
 	cd "$CUR"
 done
 
-astyle -z2OonQ $(sed -r 's/^.{2}//' <(find . -name '*.java'))
+FORMAT_PYTHON=$(sed -r 's/^.{2}//' <(find . -name '*.py'))
+if [[ -n "$FORMAT_PYTHON" ]]; then
+	for script in $FORMAT_PYTHON; do
+		echo "Formatting: $script"
+		autopep8 -j 0 "$script" --in-place
+	done
+fi

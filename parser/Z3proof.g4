@@ -45,6 +45,7 @@ TRANSITIVITY : 'trans';
 TRUE_AXIOM : 'true-axiom';
 UNIT_RESOLUTION : 'unit-resolution';
 
+//TODO: add arguments to proof_rules
 proof_rule : ASSERT
     | APPLY_DEF
     | COMMUTATIVITY

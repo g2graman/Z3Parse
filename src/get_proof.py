@@ -1,9 +1,9 @@
 from z3 import *
 
 set_param(proof=True)
-p,q = Bools('p q') 
+p, q = Bools('p q')
 
-#s = Solver()
+# s = Solver()
 prop_right = Implies(Not(And(p, q)), Or(Not(p), Not(q)))
 prop_left = Implies(And(Not(p), Not(q)), Not(And(p, q)))
 
@@ -21,6 +21,7 @@ else:
     while s2.check() == unsat:
         print s2.model()
         s2.add(Or(p != s2.model()[p], q != s2.model()[q]))
+
 
 def convert(s):
     result = s.replace('\n', '').replace(' ', '').split(',')

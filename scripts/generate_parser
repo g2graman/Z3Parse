@@ -35,9 +35,14 @@ fi
 
 CLASSPATH="$ANTLR_LOC:$ANTLR_SYMTAB:$CD/parser"
 
-cd parser
+
 antlr4="java -jar $ANTLR_LOC"
 #grun="java -cp $CLASSPATH org.antlr.v4.runtime.misc.TestRig"
 
-$antlr4 Z3proof.g4 -Werror # generate parser
+cd parser
+if [ ! -f 'Z3proof.g4' ]; then
+	https://raw.githubusercontent.com/g2graman/Z3Parse/master/parser/Z3proof.g4
+	$antlr4 -Dlanguage=Python2 Z3proof.g4 -Werror # generate parse
+fi
+
 cd ..
