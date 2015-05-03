@@ -18,7 +18,7 @@ Notwithstanding the "tests" currently found in the tests folder, each simpler te
 
 ### Changing the grammar
 
-It is not recommended that, for a quick modification, at least, you add or remove any lexer rules (the rules in `parser/Z3proof.g4` in all caps such as `ASSERTED`) or parser rules (all the other rules, such as `proof_rule`). This could cause adverse affects for the current build chain because when you regenerate the parser `parser/main.py` and `parser/Z3proofFormatter.py` will no longer necessarily correspond to the grammar. That said, 
+It is not recommended that, for a quick modification, at least, you add or remove any lexer rules (the rules in `parser/Z3proof.g4` in all caps such as `ASSERTED`) or parser rules (all the other rules, such as `proof_rule`). This could cause adverse affects for the current build chain because when you regenerate the parser `parser/main.py` and `parser/Z3proofFormatter.py` will no longer necessarily correspond to the grammar. That said, a quick change can be made to the grammar by modifying an existing rule, deleting the files corresponding to the parser of the last generation (`parser/Z3proofListener.py`, `parser/Z3proof.tokens`, `parser/Z3proofParser.py`, `parser/Z3proofLexer.py`, `parser/Z3proofLexer.tokens`) and regenerating the parser with `scripts/generate_parser`. Deletion of the files corresponding to the parser of the last generation is not automated so as to discourage frequent minor modifications.
 
 =======================================================
 
