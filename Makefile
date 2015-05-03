@@ -10,4 +10,5 @@ clean:
 
 parse:
 	scripts/generate_parser
+	scripts/run_z3 src/get_proof.py
 	#scripts/parse

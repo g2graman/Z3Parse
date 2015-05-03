@@ -77,7 +77,8 @@ proof_rule : ASSERT
     | TH_LEMMA
     | TRANSITIVITY
     | TRUE_AXIOM
-    | UNIT_RESOLUTION;
+    | UNIT_RESOLUTION
+    | expression;
 
 ruleList : proof_rule ( COMMA proof_rule )*; 
 
@@ -110,15 +111,16 @@ WHITESPACE: [ \t\n\r]+ -> skip;
 
 IDENTIFIER : ALPHA+ ALPHANUMERIC*;
 
-expression : expression ARITHMETIC_OPERATOR expression
-    | expression COMPARISON_OPERATOR expression
+expression : expression ARITHMETIC_OPERATOR expression // No precedence or associativity
+    | expression COMPARISON_OPERATOR expression // No precedence or associativity
     | 'And' LEFT_PAREN expression COMMA expression ( COMMA expression )* RIGHT_PAREN // At least 2-ary
     | 'Or' LEFT_PAREN expression COMMA expression ( COMMA expression )* RIGHT_PAREN // At least 2-ary
     | 'Implies' LEFT_PAREN expression COMMA expression RIGHT_PAREN // 2-ary
     | 'If' LEFT_PAREN expression COMMA expression COMMA expression RIGHT_PAREN // 3-ary
+    | 'Not' LEFT_PAREN expression RIGHT_PAREN
     | IDENTIFIER
-    | LITERAL
-    | IDENTIFIER arguments; // Function call
+    | IDENTIFIER arguments // Function call
+    | LITERAL;
 
 argumentList : expression ( COMMA expression )*; 
 

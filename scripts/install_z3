@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# $1 may contain name of python file to run with z3 resourcese
-
-
-
+Z3_BUILD_DIR='z3'
 if [[ -z "${Z3_BUILD_DIR-}" ]] || [ ! -d "$Z3_BUILD_DIR" ]; then
 	git clone https://github.com/Z3Prover/z3.git
 	cd z3
@@ -16,19 +13,3 @@ if [[ -z "${Z3_BUILD_DIR-}" ]] || [ ! -d "$Z3_BUILD_DIR" ]; then
 	export Z3_BUILD_DIR=$Z3_BUILD_DIR
 	cd ../..
 fi
-
-
-ERR=0
-CURRENT="`pwd`"
-
-if [[ -n "${1-}" ]] && [ -f $1 ]; then
-	file="$(basename $1)"
-	cp "$1" "$Z3_BUILD_DIR"/"$file"
-	cd "$Z3_BUILD_DIR"
-	python "$file"
-	ERR=$?
-	rm -f "$Z3_BUILD_DIR"/"$file"
-	cd $CURRENT
-fi 
-
-exit $ERR
