@@ -2,7 +2,9 @@
 
 shopt -s globstar
 
-rm -rf z3
+# directories to omit from deletion for build-caching
+OMIT_RM='z3'
+# rm -rf z3
 
 CUR=$(pwd)
 for f in $(sed -r 's/^.{2}//' <(find . | grep .gitignore)); 
@@ -11,7 +13,7 @@ do
 	while read line;
 	do
 		rm -rf $(sed -r 's/^.{2}//' <(find . -name "$line"))
-	done < <(sed '/^\s*$/d' < .gitignore | uniq | sort)
+	done < <(sed "/^\s*$/d; /^#/d; /$OMIT_RM/d" < .gitignore | uniq | sort)
 	cd "$CUR"
 done
 
