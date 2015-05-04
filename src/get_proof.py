@@ -1,11 +1,15 @@
 from z3 import *
+from z3util import *
 
 set_param(proof=True)
 p, q = Bools('p q')
 
+
 # s = Solver()
 prop_right = Implies(Not(And(p, q)), Or(Not(p), Not(q)))
 prop_left = Implies(And(Not(p), Not(q)), Not(And(p, q)))
+
+print(get_vars(prop_right))
 
 s1 = Solver()
 s2 = Solver()

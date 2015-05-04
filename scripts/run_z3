@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # $1 may contain name of python file to run with z3 resources
-Z3_BUILD_DIR='z3'
+Z3_BUILD_DIR='z3/build'
 ERR=0
 CURRENT="`pwd`"
 

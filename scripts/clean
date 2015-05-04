@@ -4,8 +4,6 @@ shopt -s globstar
 
 # directories to omit from deletion for build-caching
 OMIT_RM='z3'
-OMIT_FORMAT='z3'
-
 CUR=$(pwd)
 for f in $(sed -r 's/^.{2}//' <(find . | grep .gitignore)); 
 do
@@ -17,7 +15,8 @@ do
 	cd "$CUR"
 done
 
-FORMAT_PYTHON=$(sed -r "s/^.{2}//; /$OMIT_FORMAT/d" <(find . -name '*.py'))
+#TODO: modularize below sed expression
+FORMAT_PYTHON=$(sed -r 's/^.{2}//; /z3/d; /Z3proofLexer.py/d; /Z3proofParser.py/d; /Z3proofListener.py/d' <(find . -name '*.py'))
 if [[ -n "$FORMAT_PYTHON" ]]; then
 	for script in $FORMAT_PYTHON; do
 		echo "Formatting: $script"

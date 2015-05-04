@@ -8,8 +8,10 @@ if [[ -z "${Z3_BUILD_DIR-}" ]] || [ ! -d "$Z3_BUILD_DIR" ]; then
 	CXX=clang++ CC=clang python scripts/mk_make.py --prefix=`readlink -f ~`
 	cd build
 	make
-
+	
 	Z3_BUILD_DIR=$(pwd)
 	export Z3_BUILD_DIR=$Z3_BUILD_DIR
+
+	curl -o common.py https://raw.githubusercontent.com/g2graman/common-python-vu/master/vu_common.py
 	cd ../..
 fi
