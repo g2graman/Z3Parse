@@ -41,14 +41,15 @@ argumentList : expression ( COMMA expression )*;
 formula : NOT? BOOLEAN_LITERAL
 		| compareExpn
 		| formula IMPLIES LEFT_PAREN formula RIGHT_PAREN
-		| NOT LEFT_PAREN formula RIGHT_PAREN OR LEFT_PAREN formula RIGHT_PAREN
+		| NOT LEFT_PAREN formula RIGHT_PAREN ( OR LEFT_PAREN formula RIGHT_PAREN )?
 		| formula OR formula ( OR formula )*
-		| formula AND formula ( AND formula )*;
+		| formula AND formula ( AND formula )*
+		| QUANTIFIER '.' LEFT_PAREN formula RIGHT_PAREN
+		| IDENTIFIER ( LEFT_PAREN argumentList? RIGHT_PAREN )?;
 
 expression : boolConjunction | expression OR boolConjunction;
 boolConjunction : boolNegation | boolConjunction AND boolNegation;
 boolNegation : compareExpn | NOT boolNegation;
-
 
 compareExpn : arithExpn COMPARISON_OPERATOR arithExpn;
 arithExpn : term | arithExpn  PLUS  term |	arithExpn  MINUS term;
@@ -56,7 +57,6 @@ arithExpn : term | arithExpn  PLUS  term |	arithExpn  MINUS term;
 term : factor |	term TIMES factor | term DIVIDE factor;
 factor : primary | MINUS factor;
 
-primary : constant 
+primary : LITERAL 
 		| IDENTIFIER ( LEFT_PAREN argumentList? RIGHT_PAREN )? 
 		| LEFT_PAREN expression RIGHT_PAREN;
-constant : LITERAL;

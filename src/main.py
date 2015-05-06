@@ -7,11 +7,17 @@ import sys
 
 
 def main(argv):
-    # inp = FileStream(argv[1])
-    # lexer = Z3proofLexer(inp)
-    # stream = CommonTokenStream(lexer)
-    # parser = Z3proofParser(stream)
-    # tree = parser.proof()
+    inp = FileStream(argv[1])
+    lexer = Z3inputLexer(inp)
+    stream = CommonTokenStream(lexer)
+    parser = Z3inputParser(stream)
+    tree = parser.start_rule()
+    formatter = Z3inputFormatter()
+
+    walker = ParseTreeWalker()
+    walker.walk(formatter, tree)
+
+    print(formatter)
 
 if __name__ == '__main__':
     main(sys.argv)

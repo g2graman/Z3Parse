@@ -1,13 +1,22 @@
 from antlr4 import *
+from Z3inputListener import Z3inputListener
 
 # This class defines a complete listener for a parse tree produced by
 # Z3inputParser.
 
 
-class Z3inputFormatter(ParseTreeListener):
+class Z3inputFormatter(Z3inputListener):
+
+    # Constructor for Z3inputFormatter
+    def __init__(self):
+        self.translation = []
+
+    def __str__(self):
+        return ' '.join(self.translation)
 
     # Enter a parse tree produced by Z3inputParser#start_rule.
     def enterStart_rule(self, ctx):
+        # self.translation.append(ctx.getText())
         pass
 
     # Exit a parse tree produced by Z3inputParser#start_rule.
@@ -100,12 +109,4 @@ class Z3inputFormatter(ParseTreeListener):
 
     # Exit a parse tree produced by Z3inputParser#primary.
     def exitPrimary(self, ctx):
-        pass
-
-    # Enter a parse tree produced by Z3inputParser#constant.
-    def enterConstant(self, ctx):
-        pass
-
-    # Exit a parse tree produced by Z3inputParser#constant.
-    def exitConstant(self, ctx):
         pass
