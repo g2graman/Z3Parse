@@ -15,9 +15,9 @@ antlr4="java -jar $ANTLR_LOC"
 function check_parser_resource()
 {
  	if [ ! -f "$1" ]; then
-		curl -O https://raw.githubusercontent.com/g2graman/Z3Parse/master/parser/"$1"
-		if [[ -n "${2-}" ]]; then
-			$2	
+		curl -O https://raw.githubusercontent.com/g2graman/Z3Parse/master/"$2"/"$1"
+		if [[ -n "${3-}" ]]; then
+			$3	
 		fi
 	fi
 }
@@ -47,13 +47,23 @@ fi
 #CLASSPATH="$ANTLR_LOC:$ANTLR_SYMTAB:$CD/parser"
 
 cd parser
-check_parser_resource main.py '$antlr4 -Dlanguage=Python2 Z3proof.g4 -Werror'
-check_parser_resource main.py
-check_parser_resource Z3proofFormatter.py
+check_parser_resource main.py parser '$antlr4 -Dlanguage=Python2 Z3proof.g4 -Werror'
+check_parser_resource Z3proofFormatter.py parser
 
 REBUILD=$(sed -r 's/^.{2}//' <(find . -maxdepth 1 -name '*.py') | grep -v Z3proofFormatter.py | grep Z3proof)
 if [[ -z "$REBUILD" ]]; then
 	$antlr4 -Dlanguage=Python2 Z3proof.g4 -Werror # generate parser
+fi
+
+cd ..
+
+cd src
+check_parser_resource main.py src '$antlr4 -Dlanguage=Python2 Z3input.g4 -Werror'
+check_parser_resource Z3inputFormatter.py src
+
+REBUILD=$(sed -r 's/^.{2}//' <(find . -maxdepth 1 -name '*.py') | grep -v Z3inputFormatter.py | grep Z3proof)
+if [[ -z "$REBUILD" ]]; then
+	$antlr4 -Dlanguage=Python2 Z3input.g4 -Werror # generate parser
 fi
 
 cd ..

@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# $1 may contain name of python file to run with z3 resources
+shopt -s globstar
+
 Z3_BUILD_DIR='z3/build'
-ERR=0
-CURRENT="`pwd`"
+CURRENT=$(pwd)
 
-if [[ -n "${1-}" ]] && [ -f $1 ]; then
-	file="$(basename $1)"
-	cp "$1" "$Z3_BUILD_DIR"/"$file"
-	cd "$Z3_BUILD_DIR"
-	python "$file"
-	ERR=$?
-	rm -f "$Z3_BUILD_DIR"/"$file"
-	cd $CURRENT
-fi 
+main='get_proof.py'
+to_copy=$(ls src/*.py)
 
-exit $ERR
+cp $to_copy "$Z3_BUILD_DIR"/
+cd "$Z3_BUILD_DIR"
+python "$main"
+
+for f in $to_copy; do
+	rm -rf "${Z3_BUILD_DIR:?}/$(basename $f)"
+done
+cd "$CURRENT"

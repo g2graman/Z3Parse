@@ -118,6 +118,8 @@ expression : expression ARITHMETIC_OPERATOR expression // No precedence or assoc
     | 'Implies' LEFT_PAREN expression COMMA expression RIGHT_PAREN // 2-ary
     | 'If' LEFT_PAREN expression COMMA expression COMMA expression RIGHT_PAREN // 3-ary
     | 'Not' LEFT_PAREN expression RIGHT_PAREN
+    | 'ForAll' LEFT_PAREN expression COMMA expression RIGHT_PAREN
+    | 'Exists' LEFT_PAREN expression COMMA expression RIGHT_PAREN
     | IDENTIFIER
     | IDENTIFIER arguments // Function call
     | LITERAL;

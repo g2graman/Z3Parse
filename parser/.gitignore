@@ -1,0 +1,5 @@
+Z3proofLexer.py
+Z3proofLexer.tokens
+Z3proofListener.py
+Z3proofParser.py
+Z3proof.tokens

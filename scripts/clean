@@ -1,19 +1,18 @@
 #!/bin/bash
 
 shopt -s globstar
+shopt -s nullglob
 
 # directories to omit from deletion for build-caching
 OMIT_RM='z3'
 CUR=$(pwd)
-for f in $(sed -r 's/^.{2}//' <(find . | grep .gitignore)); 
-do
-	cd "$(dirname $f)"
-	while read line;
-	do
+while read f; do
+	cd $(dirname "$f")
+	while read line; do
 		rm -rf $(sed -r 's/^.{2}//' <(find . -name "$line"))
 	done < <(sed "/^\s*$/d; /^#/d; /$OMIT_RM/d" < .gitignore | uniq | sort)
 	cd "$CUR"
-done
+done < <(sed -r 's/^.{2}//' <(find . | grep .gitignore))
 
 #TODO: modularize below sed expression
 FORMAT_PYTHON=$(sed -r 's/^.{2}//; /z3/d; /Z3proofLexer.py/d; /Z3proofParser.py/d; /Z3proofListener.py/d' <(find . -name '*.py'))
