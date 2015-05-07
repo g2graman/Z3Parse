@@ -14,13 +14,13 @@ class Z3inputFormatter(Z3inputListener):
     def __str__(self):
         return ' '.join(self.translation)
 
-    # Enter a parse tree produced by Z3inputParser#start_rule.
-    def enterStart_rule(self, ctx):
-        # self.translation.append(ctx.getText())
+    # Enter a parse tree produced by Z3inputParser#startRule.
+    def enterStartRule(self, ctx):
+        self.translation.append(ctx.getText())
         pass
 
-    # Exit a parse tree produced by Z3inputParser#start_rule.
-    def exitStart_rule(self, ctx):
+    # Exit a parse tree produced by Z3inputParser#startRule.
+    def exitStartRule(self, ctx):
         pass
 
     # Enter a parse tree produced by Z3inputParser#formulaList.
@@ -45,6 +45,46 @@ class Z3inputFormatter(Z3inputListener):
 
     # Exit a parse tree produced by Z3inputParser#formula.
     def exitFormula(self, ctx):
+        pass
+
+    # Enter a parse tree produced by Z3inputParser#formulaImplication.
+    def enterFormulaImplication(self, ctx):
+        pass
+
+    # Exit a parse tree produced by Z3inputParser#formulaImplication.
+    def exitFormulaImplication(self, ctx):
+        pass
+
+    # Enter a parse tree produced by Z3inputParser#formulaConjunction.
+    def enterFormulaConjunction(self, ctx):
+        pass
+
+    # Exit a parse tree produced by Z3inputParser#formulaConjunction.
+    def exitFormulaConjunction(self, ctx):
+        pass
+
+    # Enter a parse tree produced by Z3inputParser#formulaDisjunction.
+    def enterFormulaDisjunction(self, ctx):
+        pass
+
+    # Exit a parse tree produced by Z3inputParser#formulaDisjunction.
+    def exitFormulaDisjunction(self, ctx):
+        pass
+
+    # Enter a parse tree produced by Z3inputParser#formulaNegation.
+    def enterFormulaNegation(self, ctx):
+        pass
+
+    # Exit a parse tree produced by Z3inputParser#formulaNegation.
+    def exitFormulaNegation(self, ctx):
+        pass
+
+    # Enter a parse tree produced by Z3inputParser#formulaAtom.
+    def enterFormulaAtom(self, ctx):
+        pass
+
+    # Exit a parse tree produced by Z3inputParser#formulaAtom.
+    def exitFormulaAtom(self, ctx):
         pass
 
     # Enter a parse tree produced by Z3inputParser#expression.

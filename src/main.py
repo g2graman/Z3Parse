@@ -11,7 +11,7 @@ def main(argv):
     lexer = Z3inputLexer(inp)
     stream = CommonTokenStream(lexer)
     parser = Z3inputParser(stream)
-    tree = parser.start_rule()
+    tree = parser.startRule()
     formatter = Z3inputFormatter()
 
     walker = ParseTreeWalker()
